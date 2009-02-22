@@ -50,17 +50,17 @@ int main(int argc, char *argv[])
   hbox = gtk_hbox_new(TRUE, 10);
   tabs = gtk_notebook_new();
 
-  //initiating buttons and labels
   for(i=0; i<2; i++)  {
+    //initiating buttons and labels
     label[i] = gtk_label_new(nameLabel[i]);
     buttonBox[i] = gtk_hbutton_box_new();
+    
     tableBox[i] = gtk_table_new(2, 2, FALSE);
   
     for(j=0; j<2; j++)  {
       button[i][j] = gtk_button_new_with_label(nameButton[j]);
       gtk_widget_set_size_request(button[i][j], 70, 35);
     
-      //initiating input label and entry
       labelInput[i][j] = gtk_label_new(nameInput[i][j]);
       input[i][j] = gtk_entry_new();
       
