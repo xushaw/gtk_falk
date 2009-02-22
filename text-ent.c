@@ -1,57 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
-static void enter_callback( GtkWidget *widget,
-                            GtkWidget *entry )
+
+/*static void enter_callback( GtkWidget *widget,
+                              GtkWidget *entry ) 
 {
   const gchar *entry_text;
   entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
   printf ("Entry contents: %s\n", entry_text);
+}*/
+static void sch_callback( GtkWidget *widget, GtkWidget *entry ) //1-й арг - кто отсылает сигнал
+{
+    const gchar *entry_text;
+    entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+    g_print("    %s\n", entry_text);
 }
 
-/*static void sch_callback( GtkWidget *widget, *entry )
+static void clr_callback( GtkWidget *widget, GtkWidget *entry )
 {
-    const gchar *entry_text; //цеплять текст в entry при нажатии b и выводить в консоль
-    entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
-    
-}*/
-/*static void e_callback( GtkWidget *widget,
-                        GtkWidget *entry )
-{ 
-    
-} */   
+    gtk_entry_set_text (GTK_ENTRY (entry), "");
+}
 
-/*static void callback( GtkWidget *widget,
-                      gpointer   data )
-{
-        g_print ("  %s\n", (char *) data);
-}*/
-//-------------------aligment widget--------------v
-GtkWidget* gtk_alignment_new( gfloat xalign,
-                              gfloat yalign,
-                              gfloat xscale,   gfloat yscale ); 
-
-/*void gtk_alignment_set( GtkAlignment *alignment,
-                        gfloat        xalign,
-                        gfloat        yalign,
-                        gfloat        xscale,
-                        gfloat        yscale );
-//-------------------aligment widget--------------#*/
 int main( int   argc,
           char *argv[] )
 {
     GtkWidget *window;
     GtkWidget *x_hbox, *g_hbox, *vbox1, *vbox2, *bhbox;
     GtkWidget *entry1, *entry2, *entry3, *entry4, *entry5;
-    GtkWidget *button_sch, *button_rs;
+    GtkWidget *button_sch, *button_clr;
     GtkWidget *notebook;
     GtkWidget *label1, *label2;
-    GtkWidget *frame1;
-    GtkWidget *frame2;
-    GtkWidget *frame3;
-    GtkWidget *frame4;
-    GtkWidget *frame5;
-
+    GtkWidget *frame1, *frame2, *frame3, *frame4, *frame5;
+    
     gtk_init (&argc, &argv);
 
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -71,7 +51,7 @@ int main( int   argc,
     gtk_container_add (GTK_CONTAINER (notebook), x_hbox);
 
     gtk_widget_set_size_request (button_sch, 100, 75);
-    gtk_widget_set_size_request (button_rs, 100, 75);
+    gtk_widget_set_size_request (button_clr, 100, 75);
 
     label1 = gtk_label_new ("Выбор силового преобразователя частоты");
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), x_hbox, label1);
@@ -79,46 +59,68 @@ int main( int   argc,
     gtk_notebook_insert_page (GTK_NOTEBOOK (notebook), g_hbox, label2, 2);
 //-----------------------
     entry1 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry1), 50); //что за длина?
+/*    gtk_entry_set_max_length (GTK_ENTRY (entry1), 50); //что за длина?
     g_signal_connect (G_OBJECT (entry1), "activate",
 		      G_CALLBACK (enter_callback),
-		      (gpointer) entry1);
+		      (gpointer) entry1);*/
     entry2 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry2), 50); 
+/*    gtk_entry_set_max_length (GTK_ENTRY (entry2), 50); 
     g_signal_connect (G_OBJECT (entry2), "activate",
 		      G_CALLBACK (enter_callback),
-		      (gpointer) entry2);
+		      (gpointer) entry2);*/
     entry3 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry3), 50); 
+/*    gtk_entry_set_max_length (GTK_ENTRY (entry3), 50); 
     g_signal_connect (G_OBJECT (entry3), "activate",
 		      G_CALLBACK (enter_callback),
-		      (gpointer) entry3);
+		      (gpointer) entry3);*/
     entry4 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry4), 50); 
+/*    gtk_entry_set_max_length (GTK_ENTRY (entry4), 50); 
     g_signal_connect (G_OBJECT (entry4), "activate",
 		      G_CALLBACK (enter_callback),
-		      (gpointer) entry4);
-
+		      (gpointer) entry4);*/
     entry5 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry5), 50); 
+/*    gtk_entry_set_max_length (GTK_ENTRY (entry5), 50); 
     g_signal_connect (G_OBJECT (entry5), "activate",
 		      G_CALLBACK (enter_callback),
-		      (gpointer) entry5);
-
+		      (gpointer) entry5);*/
 //    gtk_entry_set_text (GTK_ENTRY (entry), "hello");
 //    tmp_pos = GTK_ENTRY (entry)->text_length;
 //    gtk_editable_insert_text (GTK_EDITABLE (entry), " world", -1, &tmp_pos);
 //    gtk_editable_select_region (GTK_EDITABLE (entry1),
 //			        0, GTK_ENTRY (entry1)->text_length);
          button_sch = gtk_button_new_with_label ("Поиск"); 
-         button_rs = gtk_button_new_with_label ("Сброс");
+         button_clr = gtk_button_new_with_label ("Сброс");
 
 //         g_signal_connect (G_OBJECT (button_sch), "clicked",
 //                           G_CALLBACK (callback), (gpointer) "sch clicked");
-      //   g_signal_connect (G_OBJECT (button_sch), "clicked",
-        //                   G_CALLBACK (sch_callback),
-          //                 (gpointer) "button_sch");
-         g_signal_connect (G_OBJECT (entry2), "activate",
+//         g_signal_connect (G_OBJECT (entry1), "activate",
+//                           G_CALLBACK (sch_callback), (gpointer) entry1);
+
+         g_signal_connect (G_OBJECT (button_sch), "clicked",
+                           G_CALLBACK (sch_callback), (gpointer) entry1);
+
+g_signal_connect (G_OBJECT (button_sch), "clicked",
+                           G_CALLBACK (sch_callback), (gpointer) entry2);
+g_signal_connect (G_OBJECT (button_sch), "clicked",
+                           G_CALLBACK (sch_callback), (gpointer) entry3);
+g_signal_connect (G_OBJECT (button_sch), "clicked",
+                           G_CALLBACK (sch_callback), (gpointer) entry4);
+g_signal_connect (G_OBJECT (button_sch), "clicked",
+                           G_CALLBACK (sch_callback), (gpointer) entry5);
+
+g_signal_connect (G_OBJECT (button_clr), "clicked",
+                           G_CALLBACK (clr_callback), (gpointer) entry1);
+g_signal_connect (G_OBJECT (button_clr), "clicked",
+                           G_CALLBACK (clr_callback), (gpointer) entry2);
+g_signal_connect (G_OBJECT (button_clr), "clicked",
+                           G_CALLBACK (clr_callback), (gpointer) entry3);
+g_signal_connect (G_OBJECT (button_clr), "clicked",
+                           G_CALLBACK (clr_callback), (gpointer) entry4);
+g_signal_connect (G_OBJECT (button_clr), "clicked",
+                           G_CALLBACK (clr_callback), (gpointer) entry5);
+
+
+/*       g_signal_connect (G_OBJECT (entry2), "activate",
                            G_CALLBACK (enter_callback),
                            (gpointer) entry2);
          g_signal_connect (G_OBJECT (entry3), "activate",
@@ -129,7 +131,7 @@ int main( int   argc,
                            (gpointer) entry4);
          g_signal_connect (G_OBJECT (entry5), "activate",
                            G_CALLBACK (enter_callback),
-                           (gpointer) entry5);
+                           (gpointer) entry5);*/
          vbox1 = gtk_vbox_new (FALSE, 0);
          vbox2 = gtk_vbox_new (FALSE, 0);
          bhbox = gtk_hbox_new (FALSE, 0);
@@ -173,7 +175,7 @@ int main( int   argc,
 
     gtk_container_add (GTK_CONTAINER (vbox2), bhbox);
     gtk_container_add (GTK_CONTAINER (bhbox), button_sch);
-    gtk_container_add (GTK_CONTAINER (bhbox), button_rs);
+    gtk_container_add (GTK_CONTAINER (bhbox), button_clr);
 //    gtk_container_add (GTK_CONTAINER (align), entry3);
 //    gtk_container_add (GTK_CONTAINER (align), entry4);
 //    gtk_container_add (GTK_CONTAINER (align), button_sch); 
@@ -207,7 +209,7 @@ int main( int   argc,
     gtk_widget_show (entry4);
     gtk_widget_show (entry5);
     gtk_widget_show (button_sch);
-    gtk_widget_show (button_rs);
+    gtk_widget_show (button_clr);
     gtk_widget_show (frame1);
     gtk_widget_show (frame2);
     gtk_widget_show (frame3);
