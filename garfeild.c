@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
     //initiating buttons and labels
     label = gtk_label_new(nameLabel[i]);
     buttonBox = gtk_hbutton_box_new();
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(buttonBox), GTK_BUTTONBOX_END);
     
     tableBox = gtk_table_new(2, 2, FALSE);
     gtk_table_set_row_spacings(GTK_TABLE(tableBox), 5);
@@ -81,8 +82,7 @@ int main(int argc, char *argv[])
     for(j=0; j<2; j++)
       gtk_box_pack_start(GTK_BOX(buttonBox), button[j], FALSE, FALSE, 0);
     
-    gtk_table_attach(GTK_TABLE(tableBox), buttonBox, 1, 2, 1, 2, GTK_EXPAND, GTK_EXPAND, 1, 0);
-
+    gtk_table_attach_defaults(GTK_TABLE(tableBox), buttonBox, 1, 2, 1, 2);
 
     for(j=0; j<2; j++)  {
       g_signal_connect(G_OBJECT(button[0]), "clicked", 
