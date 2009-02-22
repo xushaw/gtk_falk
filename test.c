@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 
+void button_callback(GtkWidget *widget, gpointer data)
+{
+  g_print("Button %s\n", (gchar *) data);
+}
+
 int main(int argc, char *argv[])
 {
   GtkWidget *button;
@@ -22,6 +27,8 @@ int main(int argc, char *argv[])
   {
     button = gtk_button_new_with_label(label[i]);
     gtk_table_attach_defaults(GTK_TABLE(table), button, 0+i, 1+i, 0, 1);
+    g_signal_connect(G_OBJECT(button), "clicked",
+        G_CALLBACK(button_callback), (gpointer) label[i]);
     gtk_widget_show(button);
   }
 
