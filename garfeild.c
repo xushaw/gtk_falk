@@ -6,7 +6,6 @@
 void entry_print(GtkWidget *gw, GtkWidget *entry)
 {  
   g_print ("%s\n", gtk_entry_get_text(GTK_ENTRY(entry)));
-  //printf("BUTTON: %s", (char *)data);
 }
 
 void entry_clear(GtkWidget *gw, GtkWidget *entry)
@@ -24,14 +23,14 @@ int main(int argc, char *argv[])
   GtkWidget *window;
   GtkWidget *tabs;
   GtkWidget *hbox;
-  GtkWidget *hboxs[2][2];
-  GtkWidget *tableBox[2];
-  GtkWidget *button[2][2];
-  GtkWidget *label[2];
-  GtkWidget *input[2][2];
-  GtkWidget *labelInput[2][2];
-  GtkWidget *rightAlignment[2][2];
-  GtkWidget *buttonBox[2];
+  GtkWidget *hboxs[2];
+  GtkWidget *tableBox;
+  GtkWidget *button[2];
+  GtkWidget *label;
+  GtkWidget *input[2];
+  GtkWidget *labelInput[2];
+  GtkWidget *rightAlignment[2];
+  GtkWidget *buttonBox;
 
   char *nameButton[2] = { "Clear", "Print" };
   char *nameLabel[2] = { "Label 1", "Label 2"};
@@ -52,69 +51,59 @@ int main(int argc, char *argv[])
 
   for(i=0; i<2; i++)  {
     //initiating buttons and labels
-    label[i] = gtk_label_new(nameLabel[i]);
-    buttonBox[i] = gtk_hbutton_box_new();
+    label = gtk_label_new(nameLabel[i]);
+    buttonBox = gtk_hbutton_box_new();
     
-    tableBox[i] = gtk_table_new(2, 2, FALSE);
+    tableBox = gtk_table_new(2, 2, FALSE);
+    gtk_table_set_row_spacings(GTK_TABLE(tableBox), 5);
+    gtk_table_set_col_spacings(GTK_TABLE(tableBox), 5);
   
     for(j=0; j<2; j++)  {
-      button[i][j] = gtk_button_new_with_label(nameButton[j]);
-      gtk_widget_set_size_request(button[i][j], 70, 35);
+      button[j] = gtk_button_new_with_label(nameButton[j]);
+      gtk_widget_set_size_request(button[j], 70, 35);
     
-      labelInput[i][j] = gtk_label_new(nameInput[i][j]);
-      input[i][j] = gtk_entry_new();
+      labelInput[j] = gtk_label_new(nameInput[i][j]);
+      input[j] = gtk_entry_new();
       
-      rightAlignment[i][j] = gtk_alignment_new(1, 0.5, 0.1, 0);
+      rightAlignment[j] = gtk_alignment_new(1, 0.5, 0.1, 0);
       
-      hboxs[i][j] = gtk_hbox_new(FALSE, 5);
+      hboxs[j] = gtk_hbox_new(FALSE, 5);
       
-      gtk_container_add(GTK_CONTAINER(rightAlignment[i][j]), labelInput[i][j]);
+      gtk_container_add(GTK_CONTAINER(rightAlignment[j]), labelInput[j]);
       
-      gtk_box_pack_start(GTK_BOX(hboxs[i][j]), rightAlignment[i][j], FALSE, FALSE, 0);
-      gtk_box_pack_start(GTK_BOX(hboxs[i][j]), input[i][j], FALSE, FALSE, 0);
+      gtk_box_pack_start(GTK_BOX(hboxs[j]), rightAlignment[j], FALSE, FALSE, 0);
+      gtk_box_pack_start(GTK_BOX(hboxs[j]), input[j], FALSE, FALSE, 0);
     }
 
-    gtk_table_set_row_spacings(GTK_TABLE(tableBox[i]), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(tableBox[i]), 5);
+    for(j=0; j<2; j++)
+      gtk_table_attach_defaults(GTK_TABLE(tableBox), hboxs[j], 0+j, 1+j, 0, 1);
+  
+    for(j=0; j<2; j++)
+      gtk_box_pack_start(GTK_BOX(buttonBox), button[j], FALSE, FALSE, 0);
     
-  
-    for(j=0; j<2; j++)
-      gtk_table_attach_defaults(GTK_TABLE(tableBox[i]), hboxs[i][j], 0+j, 1+j, 0, 1);
-  
-    for(j=0; j<2; j++)
-      gtk_box_pack_start(GTK_BOX(buttonBox[i]), button[i][j], FALSE, FALSE, 0);
-  }
+    gtk_table_attach(GTK_TABLE(tableBox), buttonBox, 1, 2, 1, 2, GTK_EXPAND, GTK_EXPAND, 1, 0);
 
 
-  gtk_table_attach(GTK_TABLE(tableBox[0]), buttonBox[0], 1, 2, 1, 2, GTK_EXPAND, GTK_EXPAND, 1, 0);
-
-  gtk_table_attach(GTK_TABLE(tableBox[1]), buttonBox[1], 1, 2, 1, 2, GTK_EXPAND, GTK_EXPAND, 1, 0);
-  
-  //connecting buttons' callback to signal "clicked"
-  for(i=0; i<2; i++)  {
     for(j=0; j<2; j++)  {
-      g_signal_connect(G_OBJECT(button[i][0]), "clicked", 
-          G_CALLBACK(entry_clear), (gpointer) input[i][j]);
+      g_signal_connect(G_OBJECT(button[0]), "clicked", 
+          G_CALLBACK(entry_clear), (gpointer) input[j]);
 
-      g_signal_connect(G_OBJECT(button[i][1]), "clicked", 
-          G_CALLBACK(entry_print), (gpointer) input[i][j]);
+      g_signal_connect(G_OBJECT(button[1]), "clicked", 
+          G_CALLBACK(entry_print), (gpointer) input[j]);
       
-      g_signal_connect(G_OBJECT(input[i][j]), "activate",
-          G_CALLBACK(entry_enter), (gpointer) button[i][1]);
+      g_signal_connect(G_OBJECT(input[j]), "activate",
+          G_CALLBACK(entry_enter), (gpointer) button[1]);
     }
+  
+    gtk_notebook_append_page(GTK_NOTEBOOK(tabs), tableBox, label);
+    gtk_container_set_border_width(GTK_CONTAINER(tableBox), 5);
+    
+    gtk_widget_show_all(tableBox);
   }
   
   g_signal_connect_swapped(G_OBJECT(window), "destroy",
       G_CALLBACK(gtk_main_quit), NULL);
 
-
-  //adding widgets to tabs
-  for(i=0; i<2; i++)
-  {
-    gtk_notebook_append_page(GTK_NOTEBOOK(tabs), tableBox[i], label[i]);
-    gtk_container_set_border_width(GTK_CONTAINER(tableBox[i]), 5);
-  }
-  
   //let's show them all
   gtk_widget_show(tabs);
 
