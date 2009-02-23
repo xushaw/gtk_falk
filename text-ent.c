@@ -37,13 +37,13 @@ int main( int   argc,
     GtkWidget *menu_bar;
     GtkWidget *root_menu;
     GtkWidget *menu_items;
-    char buf[512];//?скока вешать?..
+    char buf[512];//?  1024 - segfault;
     int i;
     
     gtk_init (&argc, &argv);
 
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_widget_set_size_request (GTK_WIDGET (window), 800, 300); //500 150
+    gtk_widget_set_size_request (GTK_WIDGET (window), 500, 200); //500 150
     gtk_window_set_title (GTK_WINDOW (window), "выбор");
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
