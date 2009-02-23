@@ -37,7 +37,7 @@ int main( int   argc,
     GtkWidget *menu_bar;
     GtkWidget *root_menu;
     GtkWidget *menu_items;
-    char buf[1024];//?скока вешать?..
+    char buf[512];//?скока вешать?..
     int i;
     
     gtk_init (&argc, &argv);
