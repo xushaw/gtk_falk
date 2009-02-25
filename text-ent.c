@@ -64,7 +64,7 @@ int main( int   argc,
                                   G_CALLBACK (menuitem_response),  (gpointer) g_strdup (buf));
         gtk_widget_show (menu_items);
     }
-    root_menu = gtk_menu_item_new_with_label ("Root Menu");
+    root_menu = gtk_menu_item_new_with_label ("Файл");
     gtk_widget_show (root_menu);
 
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (root_menu), menu);
