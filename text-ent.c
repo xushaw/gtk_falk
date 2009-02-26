@@ -27,7 +27,7 @@ int main( int   argc,
           char *argv[] )
 {
     GtkWidget *window;
-    GtkWidget *x_hbox, *g_hbox, *vbox1, *vbox2, *bhbox;
+    GtkWidget *x_hbox, *g_hbox, *vbox1, *vbox2, *bhbox, *vbox_main;
     GtkWidget *entry1, *entry2, *entry3, *entry4, *entry5;
     GtkWidget *button_sch, *button_clr;
     GtkWidget *notebook;
@@ -50,6 +50,7 @@ int main( int   argc,
     g_signal_connect_swapped (G_OBJECT (window), "delete_event",
                               G_CALLBACK (gtk_widget_destroy), 
                               G_OBJECT (window));
+    vbox_main = gtk_vbox_new (FALSE, 0);
     notebook = gtk_notebook_new ();
 //-----------------------------------------------    
     menu = gtk_menu_new ();
@@ -78,7 +79,9 @@ int main( int   argc,
     x_hbox = gtk_hbox_new (FALSE, 0);
     g_hbox = gtk_hbox_new (FALSE, 0);
 
-    gtk_container_add (GTK_CONTAINER (window), notebook);
+    gtk_container_add (GTK_CONTAINER (window), vbox_main);
+    gtk_container_add (GTK_CONTAINER (vbox_main), menu_bar);
+    gtk_container_add (GTK_CONTAINER (vbox_main), notebook);
     gtk_container_add (GTK_CONTAINER (notebook), x_hbox);
 
     gtk_widget_set_size_request (button_sch, 100, 75);
@@ -157,7 +160,7 @@ g_signal_connect (G_OBJECT (button_clr), "clicked",
 
     gtk_container_add (GTK_CONTAINER (x_hbox), vbox1);
     
-    gtk_box_pack_start (GTK_BOX (vbox1), menu_bar, FALSE, FALSE, 2);//2?
+    gtk_box_pack_start (GTK_BOX (vbox_main), menu_bar, FALSE, FALSE, 2);//2? vbox1
 
     gtk_container_add (GTK_CONTAINER (x_hbox), vbox2);
     gtk_container_add (GTK_CONTAINER (g_hbox), vbox2);
@@ -224,6 +227,7 @@ g_signal_connect (G_OBJECT (button_clr), "clicked",
     gtk_widget_show (x_hbox);
     gtk_widget_show (g_hbox);
     gtk_widget_show (notebook); 
+    gtk_widget_show (vbox_main); 
     gtk_widget_show (window);
 
     gtk_main();
