@@ -11,10 +11,10 @@ static void sch_callback( GtkWidget *widget, GtkWidget *entry ) //1-й арг - 
     g_print("    %s\n", entry_text);
 }
 
-/*static void clr_callback( GtkWidget *widget, GtkWidget *entry )
+static void clr_callback( GtkWidget *widget, GtkWidget *entry )
 {
     gtk_entry_set_text (GTK_ENTRY (entry), "");
-}*/
+}
 
 int main( int   argc,
           char *argv[] )
@@ -26,7 +26,7 @@ int main( int   argc,
 //    GtkWidget *x_hbox, *g_hbox, *vbox1, *vbox2, *bhbox;
     GtkWidget *vbox_main;
     GtkWidget *entry;
-    GtkWidget *button_sch;// *button_clr;
+    GtkWidget *button_sch, *button_clr;
     GtkWidget *label1, *label2;
     char buf[512];//?  1024 - segfault;
     int i;
@@ -70,9 +70,8 @@ int main( int   argc,
     gtk_container_add (GTK_CONTAINER (vbox_main), notebook);
     gtk_container_add (GTK_CONTAINER (notebook), table);
 
-   // button_clr = gtk_button_new_with_label ("Сброс");
-
-  //  gtk_widget_set_size_request (button_clr, 100, 75);
+    button_clr = gtk_button_new_with_label ("Сброс");
+    gtk_widget_set_size_request (button_clr, 100, 75);
 
     label1 = gtk_label_new ("Выбор силового преобразователя частоты");
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), table, label1);
@@ -83,6 +82,12 @@ int main( int   argc,
         gtk_widget_set_size_request (button_sch, 100, 75);
         gtk_table_attach_defaults (GTK_TABLE (table), button_sch, 1, 2, 2, 3);
         gtk_widget_show (button_sch);
+
+        button_clr = gtk_button_new_with_label ("Сброс");
+        gtk_widget_set_size_request (button_clr, 100, 75);
+        gtk_table_attach_defaults (GTK_TABLE (table), button_clr, 1, 2, 2, 3);
+        gtk_widget_show (button_clr);
+
 for (i=0; i<3; i++)
 {    
     entry = gtk_entry_new ();
