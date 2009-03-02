@@ -97,16 +97,6 @@ for (j=0; j<3; j++)
     gtk_widget_show(entry);
 }
 
-/*    entry = gtk_entry_new ();
-    gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0+i, 1+i);
-    g_signal_connect (G_OBJECT (button_sch), "clicked",
-                      G_CALLBACK (sch_callback), (gpointer) entry);
-    g_signal_connect (G_OBJECT (button_clr), "clicked",
-                          G_CALLBACK (clr_callback), (gpointer) entry);
-    gtk_widget_show(entry);
-}*/
-
-
  gtk_widget_show_all (window);
 
  gtk_main();
@@ -116,95 +106,4 @@ return 0;
 static void menuitem_response( gchar *string )
 {
         printf ("%s\n", string);
-}/*g_signal_connect (G_OBJECT (button_clr), "clicked",
-                           G_CALLBACK (clr_callback), (gpointer) entry1);
-g_signal_connect (G_OBJECT (button_clr), "clicked",
-                           G_CALLBACK (clr_callback), (gpointer) entry2);
-g_signal_connect (G_OBJECT (button_clr), "clicked",
-                           G_CALLBACK (clr_callback), (gpointer) entry3);
-g_signal_connect (G_OBJECT (button_clr), "clicked",
-                           G_CALLBACK (clr_callback), (gpointer) entry4);
-g_signal_connect (G_OBJECT (button_clr), "clicked",
-                           G_CALLBACK (clr_callback), (gpointer) entry5);*/
-
-  /*       vbox1 = gtk_vbox_new (TRUE, 0); //выравнивание кнопочек
-         vbox2 = gtk_vbox_new (TRUE, 0); //то же
-         bhbox = gtk_hbox_new (FALSE, 0);*/
-
-/*         frame1 = gtk_frame_new (NULL);
-         frame2 = gtk_frame_new (NULL);
-         frame3 = gtk_frame_new (NULL);
-         frame4 = gtk_frame_new (NULL);
-         frame5 = gtk_frame_new (NULL);*/
-
-    
-//    gtk_box_pack_start (GTK_BOX (vbox_main), menu_bar, TRUE, TRUE, 0);//2? vbox1
-
-//    gtk_container_add (GTK_CONTAINER (g_hbox), vbox2);
-/*    gtk_container_add (GTK_CONTAINER (vbox1), frame1);
-    gtk_container_add (GTK_CONTAINER (vbox1), frame2);
-
-    gtk_container_add (GTK_CONTAINER (vbox2), frame3);
-    gtk_container_add (GTK_CONTAINER (vbox2), frame4); 
-
-    gtk_container_add (GTK_CONTAINER (vbox1), frame5); */
-
-/*    gtk_frame_set_label (GTK_FRAME (frame1), "Входные параметры");
-    gtk_frame_set_label (GTK_FRAME (frame2), "Выходные параметры");
-    gtk_frame_set_label (GTK_FRAME (frame3), "Рабочие функции");
-    gtk_frame_set_label (GTK_FRAME (frame4), "Защитные функции");
-    gtk_frame_set_label (GTK_FRAME (frame5), "Режимы коррекции");*/
- /*   gtk_frame_set_label_align (GTK_FRAME (frame1), 0.5, 0.0);//1.0 0.0
-    gtk_frame_set_label_align (GTK_FRAME (frame2), 0.5, 0.0);// comment it!
-    gtk_frame_set_label_align (GTK_FRAME (frame3), 0.5, 0.0);
-    gtk_frame_set_label_align (GTK_FRAME (frame4), 0.5, 0.0);
-    gtk_frame_set_label_align (GTK_FRAME (frame5), 0.5, 0.0);*/
-/*    gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_ETCHED_OUT);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_ETCHED_OUT);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame3), GTK_SHADOW_ETCHED_OUT);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame4), GTK_SHADOW_ETCHED_OUT);
-    gtk_frame_set_shadow_type (GTK_FRAME (frame5), GTK_SHADOW_ETCHED_OUT);*/
-
-/*    gtk_container_add (GTK_CONTAINER (frame1), entry1);
-    gtk_container_add (GTK_CONTAINER (frame2), entry2);
-    gtk_container_add (GTK_CONTAINER (frame3), entry3);
-    gtk_container_add (GTK_CONTAINER (frame4), entry4);
-    gtk_container_add (GTK_CONTAINER (frame5), entry5);*/
-
-/*pasted^*    gtk_container_add (GTK_CONTAINER (vbox2), bhbox);
-    gtk_container_add (GTK_CONTAINER (bhbox), button_sch);
-    gtk_container_add (GTK_CONTAINER (bhbox), button_clr); *pasted^*/
-//    gtk_container_add (GTK_CONTAINER (align), entry3);
-//    gtk_container_add (GTK_CONTAINER (align), entry4);
-//    gtk_container_add (GTK_CONTAINER (align), button_sch); 
-//    align = gtk_alignment_new (10, 10, 20, 20);
-//    gtk_widget_show (align);
-/*p*^    gtk_box_pack_start (GTK_BOX (x_hbox),  vbox1, TRUE, TRUE, 0); 
-    gtk_box_pack_start (GTK_BOX (x_hbox),  vbox2, TRUE, TRUE, 0); 
-    gtk_box_pack_start (GTK_BOX (g_hbox),  vbox2, TRUE, TRUE, 0); *p^*/
-/*    gtk_box_pack_start (GTK_BOX (vbox1), entry1, TRUE, TRUE, 0); 
-    gtk_box_pack_start (GTK_BOX (vbox1), entry2, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox2), entry3, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox2), entry4, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox1), entry5, TRUE, TRUE, 0);*/
-/*    gtk_widget_show (entry1);
-    gtk_widget_show (entry2);
-    gtk_widget_show (entry3);
-    gtk_widget_show (entry4);
-    gtk_widget_show (entry5);*/
-//    gtk_widget_show (button_sch);
-//    gtk_widget_show (button_clr);
-/*    gtk_widget_show (frame1);
-    gtk_widget_show (frame2);
-    gtk_widget_show (frame3);
-    gtk_widget_show (frame4);
-    gtk_widget_show (frame5);*/
-/*    gtk_widget_show (bhbox);
-    gtk_widget_show (vbox1);
-    gtk_widget_show (vbox2);
-    gtk_widget_show (x_hbox);
-    gtk_widget_show (g_hbox);
-    gtk_widget_show (notebook); 
-//    gtk_widget_show (vbox_main); 
-    gtk_widget_show (window);*/
- 
+}
