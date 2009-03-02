@@ -44,7 +44,7 @@ int main( int   argc,
 
     vbox_main = gtk_vbox_new (FALSE, 0);
     notebook = gtk_notebook_new ();
-    table = gtk_table_new (3, 2, TRUE);
+    table = gtk_table_new (4, 2, TRUE);
     menu = gtk_menu_new ();
 
     for (i=0; i<3; i++)
@@ -70,8 +70,8 @@ int main( int   argc,
     gtk_container_add (GTK_CONTAINER (vbox_main), notebook);
     gtk_container_add (GTK_CONTAINER (notebook), table);
 
-    button_clr = gtk_button_new_with_label ("Сброс");
-    gtk_widget_set_size_request (button_clr, 100, 75);
+ //   button_clr = gtk_button_new_with_label ("Сброс");
+ //   gtk_widget_set_size_request (button_clr, 100, 75);
 
     label1 = gtk_label_new ("Выбор силового преобразователя частоты");
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), table, label1);
@@ -80,12 +80,12 @@ int main( int   argc,
 
         button_sch = gtk_button_new_with_label ("Поиск"); 
         gtk_widget_set_size_request (button_sch, 100, 75);
-        gtk_table_attach_defaults (GTK_TABLE (table), button_sch, 1, 2, 2, 3);
+        gtk_table_attach_defaults (GTK_TABLE (table), button_sch, 0, 1, 3, 4);
         gtk_widget_show (button_sch);
 
         button_clr = gtk_button_new_with_label ("Сброс");
         gtk_widget_set_size_request (button_clr, 100, 75);
-        gtk_table_attach_defaults (GTK_TABLE (table), button_clr, 1, 2, 2, 3);
+        gtk_table_attach_defaults (GTK_TABLE (table), button_clr, 1, 2, 3, 4);
         gtk_widget_show (button_clr);
 
 for (i=0; i<3; i++)
@@ -93,7 +93,10 @@ for (i=0; i<3; i++)
     entry = gtk_entry_new ();
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 0, 1, 0+i, 1+i);
     g_signal_connect (G_OBJECT (button_sch), "clicked",
-                      G_CALLBACK (sch_callback), (gpointer) entry);
+                      G_CALLBACK (sch_callback), (gpointer) entry); 
+    g_signal_connect (G_OBJECT (button_clr), "clicked",
+                      G_CALLBACK (clr_callback), (gpointer) entry);
+
     gtk_widget_show(entry);
 }
 
@@ -103,6 +106,8 @@ for (i=0; i<2; i++)
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0+i, 1+i);
     g_signal_connect (G_OBJECT (button_sch), "clicked",
                       G_CALLBACK (sch_callback), (gpointer) entry);
+    g_signal_connect (G_OBJECT (button_clr), "clicked",
+                          G_CALLBACK (clr_callback), (gpointer) entry);
     gtk_widget_show(entry);
 }
 
