@@ -83,7 +83,7 @@ int main( int   argc,
         gtk_widget_set_size_request (button_sch, 100, 75);
         gtk_table_attach_defaults (GTK_TABLE (table), button_sch, 1, 2, 2, 3);
         gtk_widget_show (button_sch);
-for (i=0; i<2; i++)
+for (i=0; i<3; i++)
 {    
     entry = gtk_entry_new ();
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 0, 1, 0+i, 1+i);
@@ -92,7 +92,7 @@ for (i=0; i<2; i++)
     gtk_widget_show(entry);
 }
 
-for (i=0; i<1; i++)
+for (i=0; i<2; i++)
 {    
     entry = gtk_entry_new ();
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0+i, 1+i);
