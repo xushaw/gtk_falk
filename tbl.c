@@ -16,17 +16,25 @@ static void clr_callback( GtkWidget *widget, GtkWidget *entry )
     gtk_entry_set_text (GTK_ENTRY (entry), "");
 }
 
+static void cat_callback (GtkWidget *widget, gpointer data)
+{
+    g_print("Муррр!\n");
+}
+
+    
+
 int main( int   argc,
           char *argv[] )
 {
     GtkWidget *window;
     GtkWidget *notebook;
-    GtkWidget *table;
+    GtkWidget *table, *table2;
     GtkWidget *menu, *menu_bar, *root_menu, *menu_items;
-    GtkWidget *vbox_main;
+    GtkWidget *vbox_main, *vbox;
     GtkWidget *entry;
     GtkWidget *button_sch, *button_clr;
     GtkWidget *label1, *label2;
+    GtkWidget *cat_button;
     char buf[512];//?  1024 - segfault;
     int i,j;
     
@@ -42,8 +50,10 @@ int main( int   argc,
                               G_OBJECT (window));
 
     vbox_main = gtk_vbox_new (FALSE, 0);
+    vbox = gtk_vbox_new (TRUE, 0);
     notebook = gtk_notebook_new ();
     table = gtk_table_new (4, 2, TRUE);
+    table2 = gtk_table_new (3, 3, TRUE);
     menu = gtk_menu_new ();
 
     for (i=0; i<3; i++)
@@ -60,29 +70,37 @@ int main( int   argc,
     gtk_widget_show (root_menu);
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (root_menu), menu);
     menu_bar = gtk_menu_bar_new ();
-    gtk_box_pack_start (GTK_BOX (vbox_main), menu_bar, FALSE, FALSE, 2);
+    gtk_box_pack_start (GTK_BOX (vbox_main), menu_bar, FALSE, FALSE, 2);//same
     gtk_widget_show (menu_bar);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu_bar), root_menu);
 
+    cat_button = gtk_button_new_with_label ("(=^_^=)");
+    gtk_table_attach_defaults (GTK_TABLE (table2), cat_button, 1, 2, 1, 2);
+
     gtk_container_add (GTK_CONTAINER (window), vbox_main);
-    gtk_container_add (GTK_CONTAINER (vbox_main), menu_bar);
     gtk_container_add (GTK_CONTAINER (vbox_main), notebook);
     gtk_container_add (GTK_CONTAINER (notebook), table);
+    gtk_container_add (GTK_CONTAINER (vbox), table2);
 
     label1 = gtk_label_new ("Выбор силового преобразователя частоты");
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), table, label1);
     label2 = gtk_label_new ("МП");
-    gtk_notebook_insert_page (GTK_NOTEBOOK (notebook), table, label2, 2);
+    gtk_notebook_insert_page (GTK_NOTEBOOK (notebook), vbox, label2, 2);
+//    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, label2);//it works too!
 
         button_sch = gtk_button_new_with_label ("Поиск"); 
         gtk_widget_set_size_request (button_sch, 100, 75);
         gtk_table_attach_defaults (GTK_TABLE (table), button_sch, 0, 1, 3, 4);
-        gtk_widget_show (button_sch);
 
         button_clr = gtk_button_new_with_label ("Сброс");
         gtk_widget_set_size_request (button_clr, 100, 75);
         gtk_table_attach_defaults (GTK_TABLE (table), button_clr, 1, 2, 3, 4);
-        gtk_widget_show (button_clr);
+
+       /* cat_button = gtk_button_new_with_label ("(=^_^=)");*/
+        g_signal_connect (G_OBJECT (cat_button), "clicked",
+                          G_CALLBACK (cat_callback), NULL);
+ /*       g_signal_connect_swapped (G_OBJECT (cat_button), "clicked",
+                                  G_CALLBACK (gtk_widget_destroy), G_OBJECT (notebook));*/
 
 for (i=0; i<2; i++)
 for (j=0; j<3; j++)
