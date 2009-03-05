@@ -1,16 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <gtk/gtk.h>
+#include "table.h"
 
-enum
-{
-    TITLE_COLUMN,
-    AUTHOR_COLUMN,
-    CHECKED_COLUMN,
-    N_COLUMNS
-};
-
-static void
+    static void
 tree_selection_changed_cb (GtkTreeSelection *selection, gpointer data)
 {
     GtkTreeIter iter;
@@ -41,46 +34,6 @@ tree_selection_changed_cb (GtkTreeSelection *selection, gpointer data)
     }
 }
 
-void set_column(GtkWidget *tree, char *labelColumn[])
-{
-  GtkTreeViewColumn *column;
-  GtkCellRenderer *renderer;
-  int i;
-
-  for ( i=0; i < N_COLUMNS; i++ )
-  {
-
-      if ( i == 2 )
-      {
-          renderer = gtk_cell_renderer_toggle_new ();
-          column = gtk_tree_view_column_new_with_attributes (labelColumn[i], renderer,
-                  "active", i,
-                  NULL);
-      }
-      else
-      {
-          renderer = gtk_cell_renderer_text_new ();
-          column = gtk_tree_view_column_new_with_attributes (labelColumn[i], renderer,
-                  "text", i,
-                  NULL);
-      }
-
-      gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
-  }
-}
-
-void set_table_info(GtkTreeStore *store, char *names[], gboolean flag)
-{
-    GtkTreeIter   iter;
-
-    gtk_tree_store_append (store, &iter, NULL);  /* Acquire an iterator */
-    gtk_tree_store_set (store, &iter,
-            TITLE_COLUMN, names[TITLE_COLUMN],
-            AUTHOR_COLUMN, names[AUTHOR_COLUMN],
-            CHECKED_COLUMN, flag,
-            -1);
-}
-
 void button_callback(GtkWidget *widget, gpointer data)
 {
   g_print("Button %s\n", (gchar *) data);
@@ -91,12 +44,11 @@ int main(int argc, char *argv[])
   GtkWidget *button;
   GtkWidget *table;
   GtkWidget *window;
-  GtkTreeStore *store;
   GtkWidget *tree;
 
-  char *label[2] = {"1", "2"};
-  char *names[3] = { "One", "Two"};
-  char *labelColumn[N_COLUMNS] = { "Author", "Title", "Checked out" };
+  const char *label[2] = {"1", "2"};
+  const char *names[3] = { "O123131ne", "Two", "HELLO"};
+  const char *labelColumn[N_COLUMNS] = { "Author", "Title", "Checked out" };
   int i;
  
   gtk_init(&argc, &argv);
@@ -116,28 +68,9 @@ int main(int argc, char *argv[])
     gtk_widget_show(button);
   }
 
-  store = gtk_tree_store_new (N_COLUMNS,
-          G_TYPE_STRING,
-          G_TYPE_STRING,
-          G_TYPE_BOOLEAN);
-
-  tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-
-  g_object_unref (G_OBJECT (store));
-
-  set_column(tree, labelColumn);
-
-  set_table_info(store, names, FALSE);
+  tree = setup_table(names, labelColumn);
 
   gtk_table_attach_defaults(GTK_TABLE(table), tree, 0, 2, 1, 2);
-
-  GtkTreeSelection *select;
-
-  select = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
-  gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
-  g_signal_connect (G_OBJECT (select), "changed",
-          G_CALLBACK (tree_selection_changed_cb),
-          NULL);
 
   g_signal_connect_swapped(G_OBJECT(window), "destroy",
           G_CALLBACK(gtk_main_quit), NULL);

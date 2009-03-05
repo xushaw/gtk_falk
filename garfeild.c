@@ -1,4 +1,3 @@
-///hell2o
 #include <stdlib.h>
 #include <stdio.h>
 #include <gtk/gtk.h>
