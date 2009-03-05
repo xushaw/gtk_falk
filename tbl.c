@@ -96,7 +96,6 @@ int main( int   argc,
         gtk_widget_set_size_request (button_clr, 100, 75);
         gtk_table_attach_defaults (GTK_TABLE (table), button_clr, 1, 2, 3, 4);
 
-       /* cat_button = gtk_button_new_with_label ("(=^_^=)");*/
         g_signal_connect (G_OBJECT (cat_button), "clicked",
                           G_CALLBACK (cat_callback), NULL);
  /*       g_signal_connect_swapped (G_OBJECT (cat_button), "clicked",
