@@ -3,7 +3,14 @@
 #include <gtk/gtk.h>
 #include "table.h"
 
-    static void
+enum
+{
+    TITLE_COLUMN,
+    AUTHOR_COLUMN,
+    CHECKED_COLUMN,
+    N_COLUMNS
+};
+static void
 tree_selection_changed_cb (GtkTreeSelection *selection, gpointer data)
 {
     GtkTreeIter iter;
@@ -45,6 +52,7 @@ int main(int argc, char *argv[])
   GtkWidget *table;
   GtkWidget *window;
   GtkWidget *tree;
+  GtkTreeStore *store;
 
   const char *label[2] = {"1", "2"};
   const char *names[3] = { "O123131ne", "Two", "HELLO"};
@@ -68,7 +76,15 @@ int main(int argc, char *argv[])
     gtk_widget_show(button);
   }
 
-  tree = setup_table(names, labelColumn);
+  store = gtk_tree_store_new (N_COLUMNS,
+          G_TYPE_STRING,
+          G_TYPE_STRING,
+          G_TYPE_BOOLEAN);
+
+  tree = setup_table(store, labelColumn);
+  
+  set_table_info(store, names, FALSE);
+
 
   gtk_table_attach_defaults(GTK_TABLE(table), tree, 0, 2, 1, 2);
 

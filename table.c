@@ -43,25 +43,15 @@ void set_table_info(GtkTreeStore *store, const char *names[], gboolean flag)
             -1);
 }
 
-GtkWidget* setup_table(const char* names[], const char *labelColumn[])
+GtkWidget* setup_table(GtkTreeStore *store, const char *labelColumn[])
 {
-  GtkTreeStore *store;
   GtkWidget *tree;
-
-
-
-  store = gtk_tree_store_new (N_COLUMNS,
-          G_TYPE_STRING,
-          G_TYPE_STRING,
-          G_TYPE_BOOLEAN);
 
   tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
 
-  g_object_unref (G_OBJECT (store));
-
   set_column(tree, labelColumn);
 
-  set_table_info(store, names, FALSE);
+  g_object_unref (G_OBJECT (store));
 
   g_print("setup\n");
   return tree;
