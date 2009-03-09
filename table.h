@@ -1,7 +1,13 @@
-c
 #ifndef TABLE_H
 #define TABLE_H
 
+enum
+{
+    TITLE_COLUMN,
+    AUTHOR_COLUMN,
+    CHECKED_COLUMN,
+    N_COLUMNS
+};
 
 void set_column(GtkWidget *tree, char *labelColumn[]);
 

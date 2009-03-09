@@ -3,13 +3,6 @@
 #include <gtk/gtk.h>
 #include "table.h"
 
-enum
-{
-    TITLE_COLUMN,
-    AUTHOR_COLUMN,
-    CHECKED_COLUMN,
-    N_COLUMNS
-};
 static void
 tree_selection_changed_cb (GtkTreeSelection *selection, gpointer data)
 {

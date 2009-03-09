@@ -3,7 +3,7 @@
 #include <gtk/gtk.h>
 #include "garfeild.h"
 
-void entry_print(GtkWidget *gw, GtkWidget *entry)
+/*void entry_print(GtkWidget *gw, GtkWidget *entry)
 {  
   g_print ("%s\n", gtk_entry_get_text(GTK_ENTRY(entry)));
 }
@@ -79,6 +79,7 @@ GtkWidget* garfeildtab()
    gtk_container_set_border_width(GTK_CONTAINER(tableBox), 5);
    return tableBox;
 }
+*/
 
 int main(int argc, char *argv[])
 {
@@ -97,7 +98,7 @@ int main(int argc, char *argv[])
 
   //initiating window, hbox and tabs
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  hbox = gtk_hbox_new(TRUE, 10);
+  hbox = gtk_vbox_new(TRUE, 10);
   tabs = gtk_notebook_new();
 
   tableBox = garfeildtab();
