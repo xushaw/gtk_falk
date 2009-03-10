@@ -16,8 +16,16 @@ static void clr_callback( GtkWidget *widget, GtkWidget *entry )
     gtk_entry_set_text (GTK_ENTRY (entry), "");
 }
 
-static void cat_callback (GtkWidget *widget, gpointer data)
+static void rand_callback (GtkWidget *widget, gpointer data)//gpointer data
 {
+//    g_print("Муррр!\n");
+    short n;
+    n=rand();
+    if (n>10000)
+        g_print("Мяф...\n");
+    else if (n>5000)
+        g_print("Миу..\n");
+    else     
     g_print("Муррр!\n");
 }
 
@@ -97,7 +105,7 @@ int main( int   argc,
         gtk_table_attach_defaults (GTK_TABLE (table), button_clr, 1, 2, 3, 4);
 
         g_signal_connect (G_OBJECT (cat_button), "clicked",
-                          G_CALLBACK (cat_callback), NULL);
+                          G_CALLBACK (rand_callback), NULL);
  /*       g_signal_connect_swapped (G_OBJECT (cat_button), "clicked",
                                   G_CALLBACK (gtk_widget_destroy), G_OBJECT (notebook));*/
 
